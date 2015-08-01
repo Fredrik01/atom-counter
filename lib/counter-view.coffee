@@ -9,7 +9,7 @@ class CounterView extends View
 
   update_count: (editor) ->
     output = ''
-    delimiter = ' | '
+    delimiter = atom.config.get('counter.delimiter')
     text = @getCurrentText editor
     counts = @count text
     for type in counts

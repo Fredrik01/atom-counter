@@ -25,6 +25,11 @@ module.exports =
       title: 'Count characters'
       type: 'boolean'
       default: true
+    delimiter:
+      title: 'Delimiter'
+      description: 'Denfines what will separate the counters'
+      type: 'string'
+      default: ' | '
 
   activate: (state) ->
     view = new CounterView()
