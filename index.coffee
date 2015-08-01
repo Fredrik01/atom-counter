@@ -1,1 +1,1 @@
-module.exports = require "./lib/wordcount"
+module.exports = require "./lib/counter"

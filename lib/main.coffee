@@ -1,4 +1,4 @@
-WordcountView = require './wordcount-view'
+CounterView = require './counter-view'
 view = null
 tile = null
 
@@ -6,15 +6,16 @@ module.exports =
 
   config:
     extensions:
-      title: 'Autoactivated file extensions'
-      description: 'list of file extenstions which should have the wordcount plugin enabled'
+      title: 'Disabled file extensions'
+      description: 'list of file extenstions which should not have the count
+        plugin enabled'
       type: 'array'
-      default: [ 'md', 'markdown', 'readme', 'txt', 'rst' ]
+      default: []
       items:
         type: 'string'
 
   activate: (state) ->
-    view = new WordcountView()
+    view = new CounterView()
 
     atom.workspace.observeTextEditors (editor) ->
       editor.onDidChange -> view.update_count editor
@@ -25,12 +26,15 @@ module.exports =
     @show_or_hide_for_item atom.workspace.getActivePaneItem()
 
   show_or_hide_for_item: (item) ->
-    extensions = (atom.config.get('wordcount.extensions') || []).map (extension) -> extension.toLowerCase()
-    current_file_extension = item?.buffer?.file?.path.split('.').pop().toLowerCase()
+    extensions = (atom.config.get('counter.extensions') || [])
+      .map (extension) -> extension.toLowerCase()
+    current_file_extension = item?.buffer?.file?.path.split('.').pop()
+      .toLowerCase()
+
     if current_file_extension in extensions
-      view.css("display", "inline-block")
-    else
       view.css("display", "none")
+    else
+      view.css("display", "inline-block")
 
   consumeStatusBar: (statusBar) ->
     tile = statusBar.addRightTile(item: view, priority: 100)

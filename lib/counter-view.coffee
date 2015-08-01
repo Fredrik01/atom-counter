@@ -1,16 +1,16 @@
 {View} = require 'atom-space-pen-views'
 
 module.exports =
-class WordcountView extends View
-  CSS_SELECTED_CLASS: 'wordcount-select'
+class CounterView extends View
+  CSS_SELECTED_CLASS: 'counter-select'
 
   @content: ->
-    @div class: 'word-count inline-block'
+    @div class: 'counter inline-block'
 
   update_count: (editor) ->
     text = @getCurrentText editor
-    [wordCount, charCount] = @count text
-    @text("#{wordCount || 0} W | #{charCount || 0} C")
+    [lineCount, wordCount, charCount] = @count text
+    @text("#{lineCount || 0} L | #{wordCount || 0} W | #{charCount || 0} C")
 
   getCurrentText: (editor) =>
     selection = editor.getSelectedText()
@@ -22,6 +22,7 @@ class WordcountView extends View
     selection || text
 
   count: (text) ->
+    lines = text?.split('\n').length
     words = text?.match(/\S+/g)?.length
     chars = text?.length
-    [words, chars]
+    [lines, words, chars]

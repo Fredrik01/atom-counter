@@ -1,6 +1,6 @@
-WordcountView = require '../lib/wordcount-view'
+CounterView = require '../lib/counter-view'
 {WorkspaceView} = require 'atom'
 
-describe "WordcountView", ->
+describe "CounterView", ->
   it "has one valid test", ->
     expect("life").toBe "easy"

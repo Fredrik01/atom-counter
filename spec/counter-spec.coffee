@@ -1,29 +1,29 @@
-wordcount = require '../lib/wordcount'
+counter = require '../lib/main'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
 # To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
 # or `fdescribe`). Remove the `f` to unfocus the block.
 
-describe "wordcount", ->
+describe "counter", ->
   activationPromise = null
 
   beforeEach ->
     atom.workspaceView = new WorkspaceView
-    activationPromise = atom.packages.activatePackage('atomWordcount')
+    activationPromise = atom.packages.activatePackage('atomCounter')
 
-  describe "when the wordcount:toggle event is triggered", ->
+  describe "when the counter:activate event is triggered", ->
     it "attaches and then detaches the view", ->
-      expect(atom.workspaceView.find('.wordcount')).not.toExist()
+      expect(atom.workspaceView.find('.counter')).not.toExist()
 
       # This is an activation event, triggering it will cause the package to be
       # activated.
-      atom.workspaceView.trigger 'wordcount:toggle'
+      atom.workspaceView.trigger 'counter:activate'
 
       waitsForPromise ->
         activationPromise
 
       runs ->
-        expect(atom.workspaceView.find('.wordcount')).toExist()
-        atom.workspaceView.trigger 'wordcount:toggle'
-        expect(atom.workspaceView.find('.wordcount')).not.toExist()
+        expect(atom.workspaceView.find('.counter')).toExist()
+        atom.workspaceView.trigger 'counter:activate'
+        expect(atom.workspaceView.find('.counter')).not.toExist()
