@@ -1,7 +1,7 @@
 {
   "name": "counter",
   "main": "./lib/main",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Counts lines, words and characters in your current document, as well as in your selection and displays it in the status bar.",
   "keywords": [
     "line count",
