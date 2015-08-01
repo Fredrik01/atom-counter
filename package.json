@@ -1,10 +1,14 @@
 {
-  "name": "wordcount",
+  "name": "counter",
   "main": "./lib/main",
-  "version": "2.2.2",
-  "description": "Counts the words (and characters) in your current document, as well as in your selection and displays it in the status bar.",
+  "version": "0.0.0",
+  "description": "Counts lines, words and characters in your current document, as well as in your selection and displays it in the status bar.",
   "keywords": [
+    "line count",
+    "count lines",
     "word count",
+    "line",
+    "lines",
     "word",
     "count",
     "character count",
@@ -14,7 +18,7 @@
     "bar",
     "highlight"
   ],
-  "repository": "https://github.com/nesQuick/atom-wordcount",
+  "repository": "https://github.com/Fredrik01/atom-counter",
   "license": "MIT",
   "engines": {
     "atom": ">=0.180.0"
