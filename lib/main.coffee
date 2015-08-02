@@ -35,23 +35,27 @@ module.exports =
     view = new CounterView()
 
     atom.workspace.observeTextEditors (editor) ->
-      editor.onDidChange -> view.update_count editor
-      editor.onDidChangeSelectionRange -> view.update_count editor
+      editor.onDidChange -> view.updateCount editor
+      editor.onDidChangeSelectionRange -> view.updateCount editor
 
-    atom.workspace.onDidChangeActivePaneItem @show_or_hide_for_item
+    atom.workspace.onDidChangeActivePaneItem @showOrHide
 
-    @show_or_hide_for_item atom.workspace.getActivePaneItem()
+    @showOrHide atom.workspace.getActivePaneItem()
 
-  show_or_hide_for_item: (item) ->
+  showOrHide: (item) ->
     extensions = (atom.config.get('counter.extensions') || [])
       .map (extension) -> extension.toLowerCase()
-    current_file_extension = item?.buffer?.file?.path.split('.').pop()
+    currentFileExtension = item?.buffer?.file?.path.split('.').pop()
       .toLowerCase()
 
-    if current_file_extension in extensions
+    isEditable =
+      typeof item != 'undefined' and typeof item.displayBuffer != 'undefined'
+
+    if currentFileExtension in extensions or not isEditable
       view.css("display", "none")
     else
       view.css("display", "inline-block")
+      view.updateCount item
 
   consumeStatusBar: (statusBar) ->
     tile = statusBar.addRightTile(item: view, priority: 100)
