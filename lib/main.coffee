@@ -55,6 +55,7 @@ module.exports =
       view.css("display", "none")
     else
       view.css("display", "inline-block")
+      view.update_count item
 
   consumeStatusBar: (statusBar) ->
     tile = statusBar.addRightTile(item: view, priority: 100)
