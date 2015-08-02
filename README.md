@@ -1,9 +1,7 @@
 # Atom counter package
 
-Counts the lines, words and characters in your current document.
-
- - Counts in selected text
- - Actives automatically on all files
- - You can also define on which file extensions you dont want to activate it
+- Count lines, words and characters in the current document/selection
+- What to count can be specified
+- Active by default on all file types but exceptions can be specified
 
 ![Screenshot](screenshot.jpg?raw=true)
