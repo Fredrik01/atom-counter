@@ -48,7 +48,10 @@ module.exports =
     current_file_extension = item?.buffer?.file?.path.split('.').pop()
       .toLowerCase()
 
-    if current_file_extension in extensions
+    isEditable =
+      typeof item != 'undefined' and typeof item.displayBuffer != 'undefined'
+
+    if current_file_extension in extensions or not isEditable
       view.css("display", "none")
     else
       view.css("display", "inline-block")
