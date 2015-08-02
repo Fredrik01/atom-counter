@@ -45,13 +45,13 @@ module.exports =
   showOrHide: (item) ->
     extensions = (atom.config.get('counter.extensions') || [])
       .map (extension) -> extension.toLowerCase()
-    current_file_extension = item?.buffer?.file?.path.split('.').pop()
+    currentFileExtension = item?.buffer?.file?.path.split('.').pop()
       .toLowerCase()
 
     isEditable =
       typeof item != 'undefined' and typeof item.displayBuffer != 'undefined'
 
-    if current_file_extension in extensions or not isEditable
+    if currentFileExtension in extensions or not isEditable
       view.css("display", "none")
     else
       view.css("display", "inline-block")

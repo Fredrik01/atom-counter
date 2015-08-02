@@ -2,7 +2,7 @@
 
 module.exports =
 class CounterView extends View
-  CSS_SELECTED_CLASS: 'counter-select'
+  cssSelectedClass: 'counter-select'
 
   @content: ->
     @div class: 'counter inline-block'
@@ -20,9 +20,9 @@ class CounterView extends View
   getCurrentText: (editor) =>
     selection = editor.getSelectedText()
     if selection
-      @addClass @CSS_SELECTED_CLASS
+      @addClass @cssSelectedClass
     else
-      @removeClass @CSS_SELECTED_CLASS
+      @removeClass @cssSelectedClass
     text = editor.getText()
     selection || text
 
