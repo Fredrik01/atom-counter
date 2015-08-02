@@ -3,16 +3,33 @@ view = null
 tile = null
 
 module.exports =
-
+  # Config options
   config:
     extensions:
       title: 'Disabled file extensions'
-      description: 'list of file extenstions which should not have the count
-        plugin enabled'
+      description: 'List of file extenstions which should not have this plugin
+        enabled'
       type: 'array'
       default: []
       items:
         type: 'string'
+    countLines:
+      title: 'Count lines'
+      type: 'boolean'
+      default: true
+    countWords:
+      title: 'Count words'
+      type: 'boolean'
+      default: true
+    countChars:
+      title: 'Count characters'
+      type: 'boolean'
+      default: true
+    delimiter:
+      title: 'Delimiter'
+      description: 'Denfines what will separate the counters'
+      type: 'string'
+      default: ' | '
 
   activate: (state) ->
     view = new CounterView()
