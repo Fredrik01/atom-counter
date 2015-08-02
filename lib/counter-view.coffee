@@ -7,7 +7,7 @@ class CounterView extends View
   @content: ->
     @div class: 'counter inline-block'
 
-  update_count: (editor) ->
+  updateCount: (editor) ->
     output = ''
     delimiter = atom.config.get('counter.delimiter')
     text = @getCurrentText editor
