@@ -44,6 +44,9 @@ class CounterView extends View
   getTextInDocument: ->
     @editor.getText()
 
+  removeWhitespace: (str) ->
+    str.replace(/\s/g, '')
+
   countLinesInSelections: ->
     numberOfLines = 0
     for selection in @selections
@@ -76,6 +79,8 @@ class CounterView extends View
   countChars: ->
     if atom.config.get('counter.countChars')
       text = @getCurrentText()
+      if not atom.config.get 'counter.includeWhitespace'
+        text = @removeWhitespace text
       [true, text?.length || 0, 'C']
     else
       [false, false, false]

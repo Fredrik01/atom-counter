@@ -25,6 +25,11 @@ module.exports =
       title: 'Count characters'
       type: 'boolean'
       default: true
+    includeWhitespace:
+      title: 'Include whitespace'
+      description: 'This affects the character count'
+      type: 'boolean'
+      default: true
     delimiter:
       title: 'Delimiter'
       description: 'Denfines what will separate the counters'

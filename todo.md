@@ -1,2 +1,1 @@
 - Make test work
-- Option to count whitespace or not
