@@ -11,7 +11,7 @@ class CounterView extends View
     @addOrRemoveSelectionClass()
     delimiter = atom.config.get('counter.delimiter')
     @selections = @editor.getSelections()
-    counts = @countSelectedTypes()
+    counts = [@countLines(), @countWords(), @countChars()]
     output = ''
     for type in counts
       if type[0]
@@ -27,13 +27,16 @@ class CounterView extends View
   isSelection: ->
     if @editor.getSelectedText() then true else false
 
-  getCurrentText: ->
-    if @isSelection() then @getTextInSelections() else @getTextInDocument()
+  getCurrentText: (delimiter = '') ->
+    if @isSelection()
+      @getTextInSelections(delimiter)
+    else
+      @getTextInDocument()
 
-  getTextInSelections: ->
+  getTextInSelections: (delimiter) ->
     text = ''
     for selection in @selections
-      text += selection.getText()
+      text += selection.getText() + delimiter
     text
 
   getTextInDocument: ->
@@ -55,27 +58,22 @@ class CounterView extends View
     else
       @countLinesInDocument()
 
-  countSelectedTypes: ->
-    text = @getCurrentText()
-    lines = @countLines()
-    words = @countWords text
-    chars = @countChars text
-    [lines, words, chars]
-
   countLines: ->
     if atom.config.get('counter.countLines')
       [true, @countLinesInDocumentOrSelections() || 0, 'L']
     else
       [false, false, false]
 
-  countWords: (text) ->
+  countWords: ->
     if atom.config.get('counter.countWords')
+      text = @getCurrentText(' ')
       [true, text?.match(/\S+/g)?.length || 0, 'W']
     else
       [false, false, false]
 
-  countChars: (text) ->
+  countChars: ->
     if atom.config.get('counter.countChars')
+      text = @getCurrentText()
       [true, text?.length || 0, 'C']
     else
       [false, false, false]
