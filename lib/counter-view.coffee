@@ -8,6 +8,7 @@ class CounterView extends View
     @div class: 'counter inline-block'
 
   updateCount: (@editor) ->
+    @isSelection = @checkIfSelection()
     @addOrRemoveSelectionClass()
     @selections = @editor.getSelections()
     @output()
@@ -20,16 +21,16 @@ class CounterView extends View
     @text str.substr(0, str.length - delimiter.length)
 
   addOrRemoveSelectionClass: ->
-    if @isSelection()
+    if @isSelection
       @addClass @cssSelectedClass
     else
       @removeClass @cssSelectedClass
 
-  isSelection: ->
+  checkIfSelection: ->
     if @editor.getSelectedText() then true else false
 
   getCurrentText: (delimiter = '') ->
-    if @isSelection()
+    if @isSelection
       @getTextInSelections(delimiter)
     else
       @getTextInDocument()
@@ -54,7 +55,7 @@ class CounterView extends View
     @editor.getLineCount()
 
   countLinesInDocumentOrSelections: ->
-    if @isSelection()
+    if @isSelection
       @countLinesInSelections()
     else
       @countLinesInDocument()
