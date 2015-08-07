@@ -1,3 +1,2 @@
-- Improve line count code
 - Make test work
 - Option to count whitespace or not
