@@ -9,14 +9,15 @@ class CounterView extends View
 
   updateCount: (@editor) ->
     @addOrRemoveSelectionClass()
-    delimiter = atom.config.get('counter.delimiter')
     @selections = @editor.getSelections()
-    counts = [@countLines(), @countWords(), @countChars()]
-    output = ''
-    for type in counts
+    @output()
+
+  output: (str = '') ->
+    delimiter = atom.config.get('counter.delimiter')
+    for type in [@countLines(), @countWords(), @countChars()]
       if type[0]
-        output = output + type[1] + ' ' + type[2] + delimiter
-    @text output.substr(0, output.length - delimiter.length)
+        str = str + type[1] + ' ' + type[2] + delimiter
+    @text str.substr(0, str.length - delimiter.length)
 
   addOrRemoveSelectionClass: ->
     if @isSelection()
