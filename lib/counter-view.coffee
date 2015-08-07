@@ -18,19 +18,6 @@ class CounterView extends View
         output = output + type[1] + ' ' + type[2] + delimiter
     @text output.substr(0, output.length - delimiter.length)
 
-  # getCurrentText: =>
-  #   selection = @editor.getSelectedText()
-  #   if selection
-  #     selections = @editor.getSelections()
-  #     for s in selections
-  #       range = s.getScreenRange()
-  #       console.log range.getRowCount()
-  #     @addClass @cssSelectedClass
-  #   else
-  #     @removeClass @cssSelectedClass
-  #   text = @editor.getText()
-  #   selection || text
-
   addOrRemoveSelectionClass: ->
     if @isSelection()
       @addClass @cssSelectedClass
