@@ -7,34 +7,77 @@ class CounterView extends View
   @content: ->
     @div class: 'counter inline-block'
 
-  updateCount: (editor) ->
-    output = ''
+  updateCount: (@editor) ->
+    @addOrRemoveSelectionClass()
     delimiter = atom.config.get('counter.delimiter')
-    text = @getCurrentText editor
-    counts = @count text
+    @selections = @editor.getSelections()
+    counts = @countSelectedTypes()
+    output = ''
     for type in counts
       if type[0]
         output = output + type[1] + ' ' + type[2] + delimiter
     @text output.substr(0, output.length - delimiter.length)
 
-  getCurrentText: (editor) =>
-    selection = editor.getSelectedText()
-    if selection
+  # getCurrentText: =>
+  #   selection = @editor.getSelectedText()
+  #   if selection
+  #     selections = @editor.getSelections()
+  #     for s in selections
+  #       range = s.getScreenRange()
+  #       console.log range.getRowCount()
+  #     @addClass @cssSelectedClass
+  #   else
+  #     @removeClass @cssSelectedClass
+  #   text = @editor.getText()
+  #   selection || text
+
+  addOrRemoveSelectionClass: ->
+    if @isSelection()
       @addClass @cssSelectedClass
     else
       @removeClass @cssSelectedClass
-    text = editor.getText()
-    selection || text
 
-  count: (text) ->
-    lines = @countLines text
+  isSelection: ->
+    if @editor.getSelectedText() then true else false
+
+  getCurrentText: ->
+    if @isSelection() then @getTextInSelections() else @getTextInDocument()
+
+  getTextInSelections: ->
+    text = ''
+    for selection in @selections
+      text += selection.getText()
+    text
+
+  getTextInDocument: ->
+    @editor.getText()
+
+  countLinesInSelections: ->
+    numberOfLines = 0
+    for selection in @selections
+      range = selection.getScreenRange()
+      numberOfLines += range.getRowCount()
+    numberOfLines
+
+  countLinesInDocument: ->
+    @editor.getLineCount()
+
+  countLinesInDocumentOrSelections: ->
+    if @isSelection()
+      @countLinesInSelections()
+    else
+      @countLinesInDocument()
+
+  countSelectedTypes: ->
+    text = @getCurrentText()
+    lines = @countLines()
     words = @countWords text
     chars = @countChars text
     [lines, words, chars]
 
-  countLines: (text) ->
+  countLines: ->
     if atom.config.get('counter.countLines')
-      [true, text?.split('\n').length || 0, 'L']
+      [true, @countLinesInDocumentOrSelections() || 0, 'L']
     else
       [false, false, false]
 
