@@ -49,7 +49,6 @@ module.exports =
       editor.onDidChangeSelectionRange -> view.updateCount editor
 
     atom.workspace.onDidChangeActivePaneItem @showOrHide
-    console.log atom.config
 
     @showOrHide atom.workspace.getActivePaneItem()
 
