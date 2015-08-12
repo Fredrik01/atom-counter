@@ -3,8 +3,34 @@ view = null
 tile = null
 
 module.exports =
-  # Config options
   config:
+    countLines:
+      title: 'Count lines'
+      type: 'boolean'
+      default: true
+      order: 1
+    countWords:
+      title: 'Count words'
+      type: 'boolean'
+      default: true
+      order: 2
+    countChars:
+      title: 'Count characters'
+      type: 'boolean'
+      default: true
+      order: 3
+    includeWhitespace:
+      title: 'Include whitespace'
+      description: 'This affects the character count'
+      type: 'boolean'
+      default: true
+      order: 4
+    delimiter:
+      title: 'Delimiter'
+      description: 'Denfines what will separate the counters'
+      type: 'string'
+      default: ' | '
+      order: 5
     extensions:
       title: 'Disabled file extensions'
       description: 'List of file extenstions which should not have this plugin
@@ -13,28 +39,7 @@ module.exports =
       default: []
       items:
         type: 'string'
-    countLines:
-      title: 'Count lines'
-      type: 'boolean'
-      default: true
-    countWords:
-      title: 'Count words'
-      type: 'boolean'
-      default: true
-    countChars:
-      title: 'Count characters'
-      type: 'boolean'
-      default: true
-    includeWhitespace:
-      title: 'Include whitespace'
-      description: 'This affects the character count'
-      type: 'boolean'
-      default: true
-    delimiter:
-      title: 'Delimiter'
-      description: 'Denfines what will separate the counters'
-      type: 'string'
-      default: ' | '
+      order: 6
 
   activate: (state) ->
     view = new CounterView()
@@ -44,6 +49,7 @@ module.exports =
       editor.onDidChangeSelectionRange -> view.updateCount editor
 
     atom.workspace.onDidChangeActivePaneItem @showOrHide
+    console.log atom.config
 
     @showOrHide atom.workspace.getActivePaneItem()
 
