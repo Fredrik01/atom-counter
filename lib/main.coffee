@@ -59,7 +59,7 @@ module.exports =
       .toLowerCase()
 
     isEditable =
-      typeof item != 'undefined' and typeof item.displayBuffer != 'undefined'
+      typeof item != 'undefined' and item?.buffer
 
     if currentFileExtension in extensions or not isEditable
       view.css("display", "none")
